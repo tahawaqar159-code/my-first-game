@@ -1,27 +1,35 @@
-#include <iostream>
-using namespace std;
+#include <SFML/Graphics.hpp>
 
-void herostats(int damage , int health , int speed , string name )
-{
-	cout << " my character stats are :" << endl;
-	cout << " name : "<< name << endl;
-	cout << " damage : " << damage << endl;
-	cout << " health : " << health << endl;
-	cout << " speed : " << speed << endl;
-	cout << endl;
-}
-void enemystats (int damage, int health, int speed, string name)
-{
-	cout << " my character stats are :" << endl;
-	cout << " name : " << name << endl;
-	cout << " damage : " << damage << endl;
-	cout << " health : " << health << endl;
-	cout << " speed : " << speed << endl;
-	cout << endl;
-}
 int main()
 {
-	herostats(50, 100, 30, "Hero");
-	enemystats(70, 80, 40, "Villain");
-	return 0;
+    // initialize 
+    sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game");
+    sf::CircleShape shape(50.0f);
+    shape.setFillColor(sf::Color::Green);
+    shape.setPosition();
+    // initialize
+
+    while(window.isOpen())
+    {
+        // update 
+		sf::Event event;
+
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf:: Event :: Closed)
+				window.close();
+        }
+        // update
+
+        // draw any thing here 
+        window.clear(sf::Color::Black);
+        window.draw(shape);
+
+		window.display();
+        // draw any thing here 
+    }
+
+
+
+    return 0;
 }
