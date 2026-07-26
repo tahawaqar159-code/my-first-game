@@ -15,6 +15,8 @@ int main()
     rectangle.setPosition(sf::Vector2f(300, 300));
     rectangle.setOutlineColor(sf::Color::Cyan);
     rectangle.setOutlineThickness(15);
+    rectangle.setOrigin(sf::Vector2f (0.5f,0.5f));
+	rectangle.setRotation(45);
     // initialize
 
     while(window.isOpen())
