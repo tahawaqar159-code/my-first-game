@@ -11,49 +11,9 @@ int main()
     settings.antialiasingLevel = 8;
 
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
-    //sf::CircleShape shape(50.0f, 50);
-    ////setting the properties of circle 
-    //shape.setFillColor(sf::Color::Green);
-    //shape.setPosition(sf::Vector2f(100, 100));
-    //shape.setOutlineThickness(10);
-    //shape.setOutlineColor(sf::Color::Red);
-    ////setting the properties of rectangle
-    //sf::RectangleShape rectangle(sf::Vector2f(120.0f, 2));
-    //rectangle.setFillColor(sf::Color::Blue);
-    //rectangle.setPosition(sf::Vector2f(300, 300));
-    //rectangle.setOutlineColor(sf::Color::Cyan);
-    //rectangle.setOutlineThickness(15);
-    //rectangle.setOrigin(sf::Vector2f(0.5f, 0.5f));
-    //rectangle.setRotation(45);
-
-    //// define a triangle
-    //sf::CircleShape triangle(80.f, 3);
-    //triangle.setFillColor(sf::Color::Yellow);
-    //triangle.setPosition(sf::Vector2f(500, 100));
-    //// define a square
-    //sf::CircleShape square(80.f, 4);
-    //square.setFillColor(sf::Color::Magenta);
-    //square.setPosition(sf::Vector2f(700, 100));
-
-    //// define an octagon
-    //sf::CircleShape octagon(80.f, 8);
-    //octagon.setFillColor(sf::Color::Green);
-    //octagon.setPosition(sf::Vector2f(900, 100));
-
-    //// create an empty shape
-    //sf::ConvexShape convex;
-
-    //// resize it to 5 points
-    //convex.setPointCount(5);
-
-    //// define the points
-    //convex.setPoint(0, { 10.f, 10.f });
-    //convex.setPoint(1, { 150.f, 20.f });
-    //convex.setPoint(2, { 120.f, 90.f });
-    //convex.setPoint(3, { 30.f, 100.f });
-    //convex.setPoint(4, { 20.f, 50.f });
 
     // initialize
+  
     //load
     sf::Texture playertexture;
     sf::Sprite playersprite;
@@ -62,7 +22,10 @@ int main()
 	{
 		playersprite.setTexture(playertexture);
 		//  X,y width and height of the texture to be used for the sprite
-        playersprite.setTextureRect(sf::IntRect(0,0,64,64));
+        int Xindex = 0;
+		int Yindex = 0;
+        playersprite.setTextureRect(sf::IntRect(Xindex * 64,Yindex*64 ,64,64));
+        playersprite.scale(sf::Vector2f(2, 2));
 	}
 	else
 	{
@@ -79,24 +42,34 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            
+        }
+        sf::Vector2f position = playersprite.getPosition();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+			playersprite.setPosition(position + sf::Vector2f(1, 0));
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {    
+            playersprite.setPosition(position + sf::Vector2f(-1, 0));
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {     
+            playersprite.setPosition(position + sf::Vector2f(0,-1));
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {    
+            playersprite.setPosition(position + sf::Vector2f(0, 1));
         }
         // update
 
         // draw any thing here 
         window.clear(sf::Color::Black);
-        //window.draw(shape);
-        //window.draw(rectangle);
-
-        //window.draw(triangle);
-        //window.draw(square);
-        //window.draw(octagon);
-        //window.draw(convex);
+       
         window.draw(playersprite);
         window.display();
         // draw any thing here 
     }
-
-
 
     return 0;
 }
