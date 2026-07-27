@@ -18,8 +18,8 @@ int main()
     sf::RectangleShape rectangle(sf::Vector2f(120.0f,2));
     rectangle.setFillColor(sf::Color::Blue);
     rectangle.setPosition(sf::Vector2f(300, 300));
-    //rectangle.setOutlineColor(sf::Color::Cyan);
-   // rectangle.setOutlineThickness(15);
+    rectangle.setOutlineColor(sf::Color::Cyan);
+    rectangle.setOutlineThickness(15);
     rectangle.setOrigin(sf::Vector2f(0.5f, 0.5f));
     rectangle.setRotation(45);
 
