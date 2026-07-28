@@ -15,15 +15,37 @@ int main()
     // initialize
   
     //load
+
+    // enemy
+	sf::Texture enemytexture;
+	sf::Sprite enemysprite;
+
+    if (enemytexture.loadFromFile("assets/enemy/textures/villain_sheet.png"))
+    {
+        enemysprite.setTexture(enemytexture);
+        //  X,y width and height of the texture to be used for the sprite
+        int Xindex = 6;
+        int Yindex = 1;
+        enemysprite.setTextureRect(sf::IntRect(Xindex * 64, Yindex * 64, 64, 64));
+        enemysprite.scale(sf::Vector2f(2, 2));
+    }
+    else
+    {
+        cout << "Error loading  enemy texture" << endl;
+    }
+
+    // enemy 
+    // player
+
     sf::Texture playertexture;
     sf::Sprite playersprite;
 
-    if (playertexture.loadFromFile("assets/player/textures/skeleton.png"))
+    if (playertexture.loadFromFile("assets/player/textures/hero.png"))
 	{
 		playersprite.setTexture(playertexture);
 		//  X,y width and height of the texture to be used for the sprite
-        int Xindex = 0;
-		int Yindex = 0;
+        int Xindex = 5;
+		int Yindex = 2;
         playersprite.setTextureRect(sf::IntRect(Xindex * 64,Yindex*64 ,64,64));
         playersprite.scale(sf::Vector2f(2, 2));
 	}
@@ -31,6 +53,7 @@ int main()
 	{
 	cout << "Error loading player texture" << endl;
 	}
+    // player
     //load 
 
     while (window.isOpen())
@@ -65,8 +88,8 @@ int main()
 
         // draw any thing here 
         window.clear(sf::Color::Black);
-       
         window.draw(playersprite);
+        window.draw(enemysprite);
         window.display();
         // draw any thing here 
     }
