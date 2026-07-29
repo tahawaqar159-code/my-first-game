@@ -1,10 +1,42 @@
 #include <SFML/Graphics.hpp>
 # include <iostream>
+# include <vector>
+
 using namespace std;
 #pragma once
 
 int main()
 {
+    vector <string> topvideogames;
+    topvideogames.push_back(" gta 1");
+    topvideogames.push_back(" gta 2");
+    topvideogames.push_back(" gta 3");
+    topvideogames.push_back(" gta 4");
+    topvideogames.push_back(" gta 5");
+    topvideogames.push_back(" gta 6");
+    topvideogames.push_back("battle field 2");
+    topvideogames.push_back("battle field 1");
+    topvideogames.push_back("battle field 3");
+    topvideogames.push_back("battle field 4");
+	for (int i = 0; i < topvideogames.size(); i++)
+	{
+		cout << topvideogames[i] << endl;
+	}
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // initialize 
 
     sf::ContextSettings settings;
@@ -84,6 +116,8 @@ int main()
         {    
             playersprite.setPosition(position + sf::Vector2f(0, 1));
         }
+
+
         // update
 
         // draw any thing here 
