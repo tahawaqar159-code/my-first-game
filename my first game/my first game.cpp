@@ -116,6 +116,7 @@ int main()
 
             
         }
+
         for (int i = 0; i < bullets.size(); i++)
         {
             sf::Vector2f direction =enemyCenter - bullets[i].getPosition();
