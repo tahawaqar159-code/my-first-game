@@ -17,23 +17,23 @@ sf :: Vector2f  normalizevector(sf::Vector2f vector)
 
 int main()
 {
-    // ----------------initialize 
+    // ----------------------------------initialize ------------------------------------------
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
 
-    // ----------------initialize
+    // ----------------------------------initialize ------------------------------------------
     vector<sf::RectangleShape> bullets;
   
     //bullet.setSize(sf::Vector2f(15.f, 4.f));
     //bullet.setRotation(-155.f);
     float bulletspeed = 0.5f;
-    sf::Vector2f direction;
-    //---------------load
+    
+    //----------------------------------------load--------------------------------------
 
-    // ---------------enemy
+    // --------------------------------------enemy--------------------------------------
 	sf::Texture enemytexture;
 	sf::Sprite enemysprite;
 
@@ -52,8 +52,8 @@ int main()
         cout << "Error loading  enemy texture" << endl;
     }
 
-    // -----------enemy 
-    // -----------player
+    // --------------------------------------enemy-------------------------------------- 
+    //---------------------------------------player--------------------------------------
 
     sf::Texture playertexture;
     sf::Sprite playersprite;
@@ -72,17 +72,17 @@ int main()
 	{
 	cout << "Error loading player texture" << endl;
 	}
-    // -----------player
-    //---------------load
+    // --------------------------------------player--------------------------------------
+    //---------------------------------------load--------------------------------------
     
-    // -------calculate direction of the bullet
+    // --------------------------------------calculate direction of the bullet--------------------------------------
     sf::Vector2f enemyCenter = enemysprite.getPosition() + sf::Vector2f(64.f, 64.f);
-    // -------calculate direction of the bullet
+    // --------------------------------------calculate direction of the bullet--------------------------------------
    
 
     while (window.isOpen())
     {
-        // ----------------update 
+        // --------------------------------------update --------------------------------------
         sf::Event event;
 
         while (window.pollEvent(event))
@@ -90,9 +90,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();   
         }
-
-        //bullet.setPosition(bullet.getPosition() + direction *bulletspeed);
-
         sf::Vector2f position = playersprite.getPosition();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
@@ -117,18 +114,17 @@ int main()
             int i = bullets.size() - 1;
             bullets[i].setPosition(playersprite.getPosition());
 
-            direction = enemyCenter - bullets[i].getPosition();   // no "sf::Vector2f" here
-            direction = normalizevector(direction);
+            
         }
         for (int i = 0; i < bullets.size(); i++)
         {
+            sf::Vector2f direction =enemyCenter - bullets[i].getPosition();
+            direction = normalizevector(direction);
             bullets[i].setPosition(bullets[i].getPosition() + direction * bulletspeed );
         }
+        //--------------------------------------update--------------------------------------
 
-
-        // ----------------update
-
-        //----------------- draw any thing here 
+        //-------------------------------------- draw any thing here --------------------------------------
         window.clear(sf::Color::Black);
         window.draw(playersprite);
         window.draw(enemysprite);
@@ -139,7 +135,7 @@ int main()
         }
 		
         window.display();
-        // -----------------draw any thing here 
+        // --------------------------------------draw any thing here --------------------------------------
     }
 
     return 0;
