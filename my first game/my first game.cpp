@@ -1,63 +1,48 @@
 #include <SFML/Graphics.hpp>
 # include <iostream>
 # include <vector>
-
+# include <math.h>
 using namespace std;
 #pragma once
 
+sf :: Vector2f  normalizevector(sf::Vector2f vector)
+{
+   float m = sqrt((vector.x * vector.x) + (vector.y * vector.y));
+   sf::Vector2f normalizedvector;
+
+   normalizedvector. x =vector.x / m;
+   normalizedvector.y = vector.y / m;
+   return normalizedvector;
+}
+
 int main()
 {
-    vector <string> topvideogames;
-    topvideogames.push_back(" gta 1");
-    topvideogames.push_back(" gta 2");
-    topvideogames.push_back(" gta 3");
-    topvideogames.push_back(" gta 4");
-    topvideogames.push_back(" gta 5");
-    topvideogames.push_back(" gta 6");
-    topvideogames.push_back("battle field 2");
-    topvideogames.push_back("battle field 1");
-    topvideogames.push_back("battle field 3");
-    topvideogames.push_back("battle field 4");
-	for (int i = 0; i < topvideogames.size(); i++)
-	{
-		cout << topvideogames[i] << endl;
-	}
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // initialize 
+    // ----------------initialize 
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
 
-    // initialize
+    // ----------------initialize
   
-    //load
+    sf::RectangleShape bullet(sf::Vector2f(10, 5));
+    bullet.setSize(sf::Vector2f(15.f, 4.f));
+    bullet.setRotation(-155.f);
 
-    // enemy
+    //---------------load
+
+    // ---------------enemy
 	sf::Texture enemytexture;
 	sf::Sprite enemysprite;
 
     if (enemytexture.loadFromFile("assets/enemy/textures/villain_sheet.png"))
     {
         enemysprite.setTexture(enemytexture);
+        enemysprite.setPosition(sf::Vector2f(20.f, 520.f));
         //  X,y width and height of the texture to be used for the sprite
-        int Xindex = 6;
-        int Yindex = 1;
+        int Xindex = 4;
+        int Yindex = 3;
         enemysprite.setTextureRect(sf::IntRect(Xindex * 64, Yindex * 64, 64, 64));
         enemysprite.scale(sf::Vector2f(2, 2));
     }
@@ -66,8 +51,8 @@ int main()
         cout << "Error loading  enemy texture" << endl;
     }
 
-    // enemy 
-    // player
+    // -----------enemy 
+    // -----------player
 
     sf::Texture playertexture;
     sf::Sprite playersprite;
@@ -75,6 +60,7 @@ int main()
     if (playertexture.loadFromFile("assets/player/textures/hero.png"))
 	{
 		playersprite.setTexture(playertexture);
+        playersprite.setPosition(sf::Vector2f(1230.f, 620.f));
 		//  X,y width and height of the texture to be used for the sprite
         int Xindex = 5;
 		int Yindex = 2;
@@ -85,20 +71,29 @@ int main()
 	{
 	cout << "Error loading player texture" << endl;
 	}
-    // player
-    //load 
+    // -----------player
+    //---------------load
+    bullet.setPosition(playersprite.getPosition());
+    // -------calculate direction of the bullet
+    sf::Vector2f enemyCenter = enemysprite.getPosition() + sf::Vector2f(64.f, 64.f);
+   
+    sf::Vector2f direction = enemyCenter - bullet.getPosition();
+    direction = normalizevector(direction);
+    // -------calculate direction of the bullet
 
     while (window.isOpen())
     {
-        // update 
+        // ----------------update 
         sf::Event event;
 
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
-            
+                window.close();   
         }
+
+        bullet.setPosition(bullet.getPosition() + direction);
+
         sf::Vector2f position = playersprite.getPosition();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
@@ -118,12 +113,13 @@ int main()
         }
 
 
-        // update
+        // ----------------update
 
         // draw any thing here 
         window.clear(sf::Color::Black);
         window.draw(playersprite);
         window.draw(enemysprite);
+		window.draw(bullet);
         window.display();
         // draw any thing here 
     }
