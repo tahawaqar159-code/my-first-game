@@ -1,9 +1,11 @@
-#include <SFML/Graphics.hpp>
-# include <iostream>
+
 # include <vector>
 # include <math.h>
 using namespace std;
 #pragma once
+
+# include "player.h"
+# include "enemy.h"
 
 sf :: Vector2f  normalizevector(sf::Vector2f vector)
 {
@@ -31,47 +33,25 @@ int main()
     //bullet.setRotation(-155.f);
     float bulletspeed = 0.5f;
     
-    //----------------------------------------load--------------------------------------
+    player myplayer;
+    enemy myenemy;
+    // ----------------------------------initialize ------------------------------------------
+    myplayer.Initialize();
+    myenemy.Initialize();
+    // ----------------------------------initialize ------------------------------------------
 
+       //---------------------------------------load--------------------------------------
+    myplayer.Load();
+    myenemy.Load(); 
+    //---------------------------------------load--------------------------------------
     // --------------------------------------enemy--------------------------------------
 	sf::Texture enemytexture;
 	sf::Sprite enemysprite;
 
-    if (enemytexture.loadFromFile("assets/enemy/textures/villain_sheet.png"))
-    {
-        enemysprite.setTexture(enemytexture);
-        enemysprite.setPosition(sf::Vector2f(20.f, 20.f));
-        //  X,y width and height of the texture to be used for the sprite
-        int Xindex = 4;
-        int Yindex = 3;
-        enemysprite.setTextureRect(sf::IntRect(Xindex * 64, Yindex * 64, 64, 64));
-        enemysprite.scale(sf::Vector2f(2, 2));
-    }
-    else
-    {
-        cout << "Error loading  enemy texture" << endl;
-    }
-
     // --------------------------------------enemy-------------------------------------- 
     //---------------------------------------player--------------------------------------
 
-    sf::Texture playertexture;
-    sf::Sprite playersprite;
-
-    if (playertexture.loadFromFile("assets/player/textures/hero.png"))
-	{
-		playersprite.setTexture(playertexture);
-        playersprite.setPosition(sf::Vector2f(1230.f, 620.f));
-		//  X,y width and height of the texture to be used for the sprite
-        int Xindex = 5;
-		int Yindex = 2;
-        playersprite.setTextureRect(sf::IntRect(Xindex * 64,Yindex*64 ,64,64));
-        playersprite.scale(sf::Vector2f(2, 2));
-	}
-	else
-	{
-	cout << "Error loading player texture" << endl;
-	}
+ 
     // --------------------------------------player--------------------------------------
     //---------------------------------------load--------------------------------------
     
@@ -90,51 +70,40 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();   
         }
-        sf::Vector2f position = playersprite.getPosition();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        {
-			playersprite.setPosition(position + sf::Vector2f(1, 0));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        {    
-            playersprite.setPosition(position + sf::Vector2f(-1, 0));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        {     
-            playersprite.setPosition(position + sf::Vector2f(0,-1));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        {    
-            playersprite.setPosition(position + sf::Vector2f(0, 1));
-        }
+
+        myplayer.Update();
+        myenemy.Update();
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
             bullets.push_back(sf::RectangleShape(sf::Vector2f(10, 5)));
             int i = bullets.size() - 1;
-            bullets[i].setPosition(playersprite.getPosition());
+            bullets[i].setPosition(myplayer.sprite.getPosition());
 
             
         }
 
         for (int i = 0; i < bullets.size(); i++)
         {
-            sf::Vector2f direction =enemyCenter - bullets[i].getPosition();
+            sf::Vector2f direction =myenemy.sprite.getPosition() - bullets[i].getPosition();
             direction = normalizevector(direction);
             bullets[i].setPosition(bullets[i].getPosition() + direction * bulletspeed );
         }
+      
         //--------------------------------------update--------------------------------------
 
         //-------------------------------------- draw any thing here --------------------------------------
         window.clear(sf::Color::Black);
-        window.draw(playersprite);
-        window.draw(enemysprite);
+
+        myenemy.Draw(window);
+        myplayer.Draw(window);
+
+        window.draw(myenemy.sprite);
 
         for (int i = 0; i < bullets.size(); i++)
         {
             window.draw(bullets[i]);
         }
-		
         window.display();
         // --------------------------------------draw any thing here --------------------------------------
     }
