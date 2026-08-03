@@ -1,5 +1,6 @@
 #include "player.h"
 # include <iostream>
+#include "math.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ void player::Load()
 	}
 }
 
-void player::Update()
+void player::Update(enemy& myenemy)
 {
 	sf::Vector2f position = sprite.getPosition();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -46,11 +47,32 @@ void player::Update()
 		sprite.setPosition(position + sf::Vector2f(0, 1));
 	}
 
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		bullets.push_back(sf::RectangleShape(sf::Vector2f(10, 5)));
+		int i = bullets.size() - 1;
+		bullets[i].setPosition(sprite.getPosition());
+
+
+	}
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		sf::Vector2f direction = myenemy.sprite.getPosition() - bullets[i].getPosition();
+		direction = math::normalizevector(direction);
+		bullets[i].setPosition(bullets[i].getPosition() + direction * bulletspeed);
+	}
+
 }
 
 void player::Draw (sf::RenderWindow & window)
 {
 
 	window.draw(sprite);
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		window.draw(bullets[i]);
+	}
 }
 
