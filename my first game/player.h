@@ -12,14 +12,14 @@ private :
 
 	vector<sf::RectangleShape> bullets;
 	float bulletspeed = 0.5f;
-	sf::Vector2i size;
+
 	sf::RectangleShape boundingRectangle;	
+	sf::Vector2i size;
 public:
 	sf::Sprite sprite;
 public :
 	void Initialize();
 	void Load();
-
 	void Update(enemy& myenemy);
 	void Draw(sf::RenderWindow& window);
 };

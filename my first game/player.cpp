@@ -71,7 +71,10 @@ void player::Update(enemy& myenemy)
 		bullets[i].setPosition(bullets[i].getPosition() + direction * bulletspeed);
 	}
 	boundingRectangle.setPosition(sprite.getPosition());
-
+	if (math::checkCollision(sprite.getGlobalBounds(), myenemy.sprite.getGlobalBounds()))
+	{
+		cout << "Player and enemy collided!" << endl;
+	}
 }
 
 void player::Draw (sf::RenderWindow & window)
