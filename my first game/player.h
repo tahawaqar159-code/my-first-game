@@ -2,7 +2,9 @@
 # include <SFML/Graphics.hpp>
 # include "enemy.h"
 #include <vector>
+
 using namespace std;
+
 class player
 {
 private :
@@ -10,6 +12,8 @@ private :
 
 	vector<sf::RectangleShape> bullets;
 	float bulletspeed = 0.5f;
+	sf::Vector2i size;
+	sf::RectangleShape boundingRectangle;	
 public:
 	sf::Sprite sprite;
 public :

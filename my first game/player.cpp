@@ -6,6 +6,12 @@ using namespace std;
 
 void player::Initialize()
 {
+	boundingRectangle.setFillColor(sf::Color::Transparent);
+	boundingRectangle.setOutlineColor(sf::Color::Blue);
+	boundingRectangle.setOutlineThickness(2);
+
+	size = sf::Vector2i(64, 64);
+
 }
 
 void player::Load()
@@ -14,12 +20,14 @@ void player::Load()
 	if (texture.loadFromFile("assets/player/textures/hero.png"))
 	{
 		sprite.setTexture(texture);
-		sprite.setPosition(sf::Vector2f(1230.f, 620.f));
 		//  X,y width and height of the texture to be used for the sprite
 		int Xindex = 5;
 		int Yindex = 2;
-		sprite.setTextureRect(sf::IntRect(Xindex * 64, Yindex * 64, 64, 64));
+		sprite.setTextureRect(sf::IntRect(Xindex * size.x, Yindex * size.y, size.x, size.y));
+		sprite.setPosition(sf::Vector2f(10.f, 10.f));
+		
 		sprite.scale(sf::Vector2f(2, 2));
+		boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
 	}
 	else
 	{
@@ -62,6 +70,7 @@ void player::Update(enemy& myenemy)
 		direction = math::normalizevector(direction);
 		bullets[i].setPosition(bullets[i].getPosition() + direction * bulletspeed);
 	}
+	boundingRectangle.setPosition(sprite.getPosition());
 
 }
 
@@ -69,6 +78,7 @@ void player::Draw (sf::RenderWindow & window)
 {
 
 	window.draw(sprite);
+	window.draw(boundingRectangle);
 
 	for (int i = 0; i < bullets.size(); i++)
 	{
