@@ -32,7 +32,7 @@ void enemy::Load()
     }
 }
 
-void enemy::Update()
+void enemy::Update(float deltaTime)
 {
     boundingRectangle.setPosition(sprite.getPosition());
 }

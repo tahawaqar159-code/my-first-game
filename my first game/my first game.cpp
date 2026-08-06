@@ -1,6 +1,7 @@
 
 # include <vector>
 # include <math.h>
+# include <iostream>
 using namespace std;
 #pragma once
 
@@ -17,7 +18,7 @@ int main()
     settings.antialiasingLevel = 8;
 
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
-
+    window.setVerticalSyncEnabled(true);
     // ----------------------------------initialize ------------------------------------------
   
     //bullet.setSize(sf::Vector2f(15.f, 4.f));
@@ -45,9 +46,13 @@ int main()
     sf::Vector2f enemyCenter = enemysprite.getPosition() + sf::Vector2f(64.f, 64.f);
     // --------------------------------------calculate direction of the bullet--------------------------------------
 
-   
+    sf::Clock clock;
     while (window.isOpen())
     {
+        sf::Time deltaTime = clock.restart();
+        cout << deltaTime.asMilliseconds() << endl;
+
+       
         // --------------------------------------update --------------------------------------
         sf::Event event;
 
@@ -56,6 +61,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();   
         }
+      
         myenemy.Update();
         myplayer.Update(myenemy);
        
@@ -68,6 +74,7 @@ int main()
         window.draw(myenemy.sprite);
         window.display();
         // --------------------------------------draw any thing here --------------------------------------
+      
     }
 
     return 0;
