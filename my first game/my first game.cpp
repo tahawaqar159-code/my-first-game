@@ -16,7 +16,6 @@ int main()
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    cout << "game started" << endl;
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
     window.setVerticalSyncEnabled(true);
     // ----------------------------------initialize ------------------------------------------
