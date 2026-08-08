@@ -18,7 +18,7 @@ int main()
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
     //window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(36frame rate 0);
+    window.setFramerateLimit(360);
     // ----------------------------------initialize ------------------------------------------
   
     //bullet.setSize(sf::Vector2f(15.f, 4.f));
