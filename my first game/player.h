@@ -12,7 +12,7 @@ private :
 
 	vector<sf::RectangleShape> bullets;
 	float bulletspeed = 0.5f;
-
+	float playerspeed = 1.0f;
 	sf::RectangleShape boundingRectangle;	
 	sf::Vector2i size;
 public:
@@ -20,7 +20,7 @@ public:
 public :
 	void Initialize();
 	void Load();
-	void Update(enemy& myenemy);
+	void Update(float deltaTime, enemy& myenemy);
 	void Draw(sf::RenderWindow& window);
 };
 

@@ -17,7 +17,8 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My First Game", sf::Style::Default, settings);
-    window.setVerticalSyncEnabled(true);
+    //window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(36frame rate 0);
     // ----------------------------------initialize ------------------------------------------
   
     //bullet.setSize(sf::Vector2f(15.f, 4.f));
@@ -48,8 +49,8 @@ int main()
     sf::Clock clock;
     while (window.isOpen())
     {
-        sf::Time deltaTime = clock.restart();
-        cout << deltaTime.asMilliseconds() << endl;
+        sf::Time deltaTimeTimer = clock.restart();
+		float deltaTime = deltaTimeTimer.asMilliseconds();
 
        
         // --------------------------------------update --------------------------------------
@@ -61,8 +62,8 @@ int main()
                 window.close();   
         }
       
-        myenemy.Update();
-        myplayer.Update(myenemy);
+        myenemy.Update(deltaTime);
+        myplayer.Update(deltaTime,myenemy);
        
         //--------------------------------------update--------------------------------------
 
